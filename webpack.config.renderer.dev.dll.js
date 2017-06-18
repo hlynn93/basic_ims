@@ -40,6 +40,10 @@ export default merge.smart(baseConfig, {
         ]
       },
       {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      },
+      {
         test: /^((?!\.global).)*\.css$/,
         use: [
           {

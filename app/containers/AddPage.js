@@ -1,14 +1,17 @@
-// @flow
 import React, { Component } from 'react';
 
-import styles from './Home.css';
-
-export default class Home extends Component {
+class AddPage extends Component {
   render() {
     return (
       <div>
-        Home Page
+        Add Page
       </div>
     );
   }
 }
+
+AddPage.propTypes = {
+
+};
+
+export default AddPage;
