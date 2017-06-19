@@ -11,16 +11,21 @@ module.exports = [
   },
   {
     id: 3,
+    name: 'Create',
+    router: '/create',
+  },
+  {
+    id: 4,
     name: 'Inventory',
     router: '/inventory',
   },
   {
-    id: 4,
-    name: 'Transaction',
+    id: 5,
+    name: 'Transactions',
     router: '/transactions',
   },
   {
-    id: 5,
+    id: 6,
     name: 'Settings',
     router: '/settings',
   },

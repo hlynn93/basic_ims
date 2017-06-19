@@ -1,0 +1,21 @@
+CREATE TABLE [Item] (
+  [id]   INTEGER PRIMARY KEY AUTOINCREMENT,
+  [name] TEXT    NOT NULL,
+  [quantity] REAL NOT NULL DEFAULT 0,
+  [unit] TEXT NOT NULL,
+  [price] INTEGER NOT NULL
+);
+
+CREATE TABLE [Transaction] (
+  [id]	INTEGER PRIMARY KEY AUTOINCREMENT,
+  [itemId] INTEGER NOT NULL,
+  [orderId] INTEGER NOT NULL,
+  [price]	INTEGER    NOT NULL,
+  [quantity] REAL NOT NULL,
+  FOREIGN KEY([itemId]) REFERENCES [Item](id),
+  FOREIGN KEY([orderId]) REFERENCES [Order](id)
+);
+
+CREATE TABLE [Order] (
+  [id]          INTEGER PRIMARY KEY AUTOINCREMENT
+);

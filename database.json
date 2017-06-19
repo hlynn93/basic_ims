@@ -1,0 +1,19 @@
+{
+  "dev": {
+    "driver": "sqlite3",
+    "filename": "db/inventory.db"
+  },
+
+  "test": {
+    "driver": "sqlite3",
+    "filename": "db/inventory.db"
+  },
+
+  "prod": {
+    "driver": "sqlite3",
+    "filename": "db/inventory.db"
+  },
+
+  "sql-file" : true,
+  "multipleStatements": true
+}
