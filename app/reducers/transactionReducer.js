@@ -1,7 +1,7 @@
 import { TRANSACTION as T } from '../actions/constants';
 
 const initialState = {
-  transactions: [],
+  transactions: []
 };
 
 const transactionReducer = (state = initialState, action) => {

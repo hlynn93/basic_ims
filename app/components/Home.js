@@ -1,15 +1,13 @@
 // @flow
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Search } from 'semantic-ui-react';
 import _ from 'lodash';
 
-import styles from './Home.css';
+import { AddForm } from './HomeComponents';
 
 const initialState = {
-  isLoading: false,
-  value: '',
-  results: []
+  item: {},
+  transactions: [],
 };
 
 export default class Home extends Component {
@@ -24,53 +22,36 @@ export default class Home extends Component {
 
   componentWillMount() {
     this.props.actions.getItems();
-    this.resetComponent();
   }
 
-  resetComponent = () => this.setState({ isLoading: false, results: [], value: '' })
+  resetItem() {
+    return this.setState({ item: {} });
+  }
 
-  handleResultSelect = (e: {}, result: {}) => this.setState({ value: result.title })
+  handleResultSelect(id: number) {
+    const { items } = this.props;
+    this.setState({ ...this.state, item: items.find(item => item.id === id) });
+  }
 
-  handleSearchChange = (e: {}, value: string) => {
-    this.setState({ isLoading: true, value });
-
-    setTimeout(() => {
-      if (this.state.value.length < 1) return this.resetComponent();
-
-      const re = new RegExp(_.escapeRegExp(this.state.value), 'i');
-      const isMatch = (result) => re.test(result.title);
-
-      this.setState({
-        isLoading: false,
-        results: _.filter(this.props.items || [], isMatch),
-      });
-    }, 500);
+  handleAdd(transaction: {}={}) {
+    this.setState({
+      ...this.state,
+      item: {},
+      transactions: [...this.state.transactions, transaction]
+    });
   }
 
   render() {
-    const { isLoading, value, results } = this.state
+    const { item } = this.state;
     return (
       <div>
-        <Search
-          loading={isLoading}
-          onResultSelect={this.handleResultSelect}
-          onSearchChange={this.handleSearchChange}
-          results={formatResults(results)}
-          value={value}
+        <AddForm
+          items={this.props.items}
+          item={item}
+          onResultSelect={this.handleResultSelect.bind(this)}
+          onSubmit={this.handleAdd.bind(this)}
         />
       </div>
     );
   }
 }
-
-const formatResults = (results: []=[]) => {
-  const formattedResults = results.map(item => {
-    const formattedItem = { ...item };
-    delete formattedItem.quantity;
-    delete formattedItem.unit;
-    formattedItem.price = `$${formattedItem.price}`;
-    return formattedItem;
-  });
-  return formattedResults;
-};
-
