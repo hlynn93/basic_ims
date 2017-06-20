@@ -1,6 +1,6 @@
 CREATE TABLE [Item] (
   [id]   INTEGER PRIMARY KEY AUTOINCREMENT,
-  [name] TEXT    NOT NULL,
+  [title] TEXT    NOT NULL,
   [quantity] REAL NOT NULL DEFAULT 0,
   [unit] TEXT NOT NULL,
   [price] INTEGER NOT NULL

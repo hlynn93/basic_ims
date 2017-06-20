@@ -1,2 +1,6 @@
 @import "~font-awesome/css/font-awesome.css";
-@import '~antd/dist/antd.css';
+@import '~semantic-ui-css/semantic.min.css';
+
+.main-panel {
+  padding: 1rem 1rem 1rem 16rem;
+}

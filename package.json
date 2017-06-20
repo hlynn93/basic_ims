@@ -184,7 +184,6 @@
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
-    "antd": "^2.11.1",
     "electron-debug": "^1.1.0",
     "extract-text-webpack-plugin": "^2.1.0",
     "font-awesome": "^4.7.0",
@@ -198,6 +197,8 @@
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
+    "semantic-ui-css": "^2.2.10",
+    "semantic-ui-react": "^0.68.5",
     "source-map-support": "^0.4.15"
   },
   "devEngines": {

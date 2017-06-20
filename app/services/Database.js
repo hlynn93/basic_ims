@@ -69,7 +69,7 @@ class Database {
   }
 
   getItems(value: string='') {
-    return this.allAsync(`SELECT * FROM Item WHERE name LIKE '${value}%'`);
+    return this.allAsync(`SELECT * FROM Item WHERE title LIKE '${value}%'`);
   }
 
   addItem() {

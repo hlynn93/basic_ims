@@ -1,38 +1,34 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Menu } from 'antd';
+import { Menu } from 'semantic-ui-react';
 import { menu } from '../utils';
 
 import styles from './Sidebar.css';
 
-const DARK_THEME = 'dark';
-
 class Sidebar extends Component {
   state = {
-    current: '1',
+    activeItem: menu[0].name,
   }
-  handleClick = (e: {}) => {
-    this.setState({
-      current: e.key,
-    });
-  }
+
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
   render() {
+    const { activeItem } = this.state;
     const menuItems = menu.map(item =>
-      <Menu.Item key={item.id.toString()}>
-        <Link to={item.router}>{item.name}</Link>
+      <Menu.Item
+        key={item.id}
+        name={item.name}
+        active={item.name === activeItem}
+        onClick={this.handleItemClick}
+      >
+        <Link className="sidebar-link" to={item.router}>{item.name}</Link>
       </Menu.Item>
     );
 
     return (
       <div className={styles.sidebar}>
-        <Menu
-          theme={DARK_THEME}
-          onClick={this.handleClick}
-          style={{ width: 224 }}
-          selectedKeys={[this.state.current]}
-          mode="inline"
-        >
+        <Menu vertical>
           {menuItems}
         </Menu>
       </div>

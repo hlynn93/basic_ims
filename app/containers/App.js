@@ -12,7 +12,7 @@ export default class App extends Component {
     return (
       <div>
         <Sidebar />
-        <div style={{ marginLeft: 224 }}>
+        <div className="main-panel">
           {this.props.children}
         </div>
       </div>
