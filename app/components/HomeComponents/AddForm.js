@@ -65,6 +65,7 @@ export default class AddForm extends Component {
     this.resetComponent();
     this.props.onSubmit({
       itemId: item.id,
+      title: item.title,
       quantity: parseFloat(transaction.quantity),
       price: parseInt(transaction.price, DECIMAL) || DEFAULT_QUANTITY * item.price
     });
