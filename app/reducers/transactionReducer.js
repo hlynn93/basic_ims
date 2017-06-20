@@ -1,17 +1,21 @@
 import { TRANSACTION as T } from '../actions/constants';
 
 const initialState = {
-  transactions: []
+  transactions: [],
+  message: '',
+  error: '',
 };
 
 const transactionReducer = (state = initialState, action) => {
   switch (action.type) {
+    case T.UPDATE_TRANSACTIONS:
+      return { ...state, message: '', error: '', transactions: action.transactions };
     case T.ORDER_REQUEST:
-      return state;
+      return { ...state, message: '', error: '' };
     case T.ORDER_FAILURE:
-      return state;
+      return { ...state, message: '', error: action.error };
     case T.ORDER_SUCCESS:
-      return state;
+      return { ...state, message: action.message, error: '' };
     default:
       return state;
   }

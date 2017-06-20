@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import { Search, Input, Form, Button, Label } from 'semantic-ui-react';
+import { Search, Input, Form, Button, Label, Icon } from 'semantic-ui-react';
 
 const DEFAULT_QUANTITY = 1;
 
@@ -65,7 +65,6 @@ export default class AddForm extends Component {
     this.resetComponent();
     this.props.onSubmit({
       itemId: item.id,
-      title: item.title,
       quantity: parseFloat(transaction.quantity),
       price: parseInt(transaction.price, DECIMAL) || DEFAULT_QUANTITY * item.price
     });
@@ -129,7 +128,7 @@ export default class AddForm extends Component {
               type="submit"
               disabled={_.isEmpty(item)}
             >
-              Submit
+              Add
             </Button>
           </Form.Group>
         </Form>

@@ -5,14 +5,16 @@ import { AddForm, TransactionTable } from './HomeComponents';
 
 const initialState = {
   item: {},
-  transactions: [],
 };
 
 export default class Home extends Component {
   props: {
     items: [],
+    transactions: [],
     actions: {
-      getItems: () => void
+      getItems: () => void,
+      order: () => void,
+      updateTransactions: () => void,
     }
   }
 
@@ -32,26 +34,23 @@ export default class Home extends Component {
   }
 
   handleAdd(transaction: {}={}) {
-    this.setState({
-      item: {},
-      transactions: [...this.state.transactions, transaction]
-    });
+    this.setState({ item: {} });
+    this.props.actions.updateTransactions([...this.props.transactions, transaction]);
   }
 
   handleDelete(index: number) {
-    const newTransactions = [...this.state.transactions];
+    const newTransactions = [...this.props.transactions];
     newTransactions.splice(index, 1);
-    this.setState({
-      transactions: newTransactions,
-    })
+    this.props.actions.updateTransactions(newTransactions);
   }
 
   handeOrder() {
-
+    this.props.actions.order(this.props.transactions);
   }
 
   render() {
-    const { item, transactions } = this.state;
+    const { item,  } = this.state;
+    const { transactions } = this.props;
     return (
       <div>
         <AddForm
@@ -61,6 +60,7 @@ export default class Home extends Component {
           onSubmit={this.handleAdd.bind(this)}
         />
         <TransactionTable
+          items={this.props.items}
           transactions={transactions}
           onDelete={this.handleDelete.bind(this)}
           onOrder={this.handeOrder.bind(this)}

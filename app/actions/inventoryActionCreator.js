@@ -22,9 +22,9 @@ const getItems = (input: string='') => (
     return db.getItems(input)
       .then(response => {
         if (response.error) {
-          dispatch(getItemsFailure(response.error));
+          return dispatch(getItemsFailure(response.error));
         }
-        dispatch(getItemsSuccess(response.rows));
+        return dispatch(getItemsSuccess(response.rows));
       })
       .catch(ex => {
         dispatch(getItemsFailure());
