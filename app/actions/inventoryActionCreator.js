@@ -20,19 +20,48 @@ const getItemsSuccess = (items: []) => ({
   items
 });
 
+const updateItemRequest = () => ({
+  type: I.UPDATE_ITEM_REQUEST,
+});
+
+const updateItemFailure = () => ({
+  type: I.UPDATE_ITEM_FAILURE,
+});
+
+const updateItemSuccess = () => ({
+  type: I.UPDATE_ITEM_SUCCESS,
+});
+
 const getItems = (input: string='') => (
   (dispatch) => {
     dispatch(getItemsRequest());
     return db.getItems(input)
-      .then(response => {
-        if (response.error) {
-          return dispatch(getItemsFailure(response.error));
-        }
-        return dispatch(getItemsSuccess(response.rows));
-      })
+      .then(response => (
+        response.error ?
+        dispatch(getItemsFailure(response.error)) :
+        dispatch(getItemsSuccess(response.rows))
+      ))
       .catch(ex => {
         dispatch(getItemsFailure());
-        console.error('Error in trying to get attendance: ', ex)
+        console.error('Error in trying to get items: ', ex);
+      });
+  }
+);
+
+const updateItem = (id, fields: {}={}) => (
+  (dispatch) => {
+    dispatch(updateItemRequest());
+    return db.updateItem(id, fields)
+      .then(response => {
+        if (response.error) {
+          return dispatch(updateItemFailure(response.error));
+        }
+        dispatch(updateItemSuccess(response.rows));
+        return dispatch(getItems());
+      })
+      .catch(ex => {
+        dispatch(updateItemFailure());
+        console.error('Error in trying to update item: ', ex);
       });
   }
 );
@@ -49,5 +78,6 @@ const initInventory = () => (
 
 module.exports = {
   getItems,
-  initInventory
+  initInventory,
+  updateItem
 };

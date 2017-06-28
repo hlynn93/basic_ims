@@ -1,7 +1,7 @@
-import AddForm from './AddForm';
+import OrderForm from './OrderForm';
 import TransactionTable from './TransactionTable';
 
 module.exports = {
-  AddForm,
+  OrderForm,
   TransactionTable
 };

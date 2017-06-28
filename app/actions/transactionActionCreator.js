@@ -23,8 +23,24 @@ const updateTransactions = (transactions: []=[]) => ({
   transactions
 });
 
+const restockRequest = () => ({
+  type: T.RESTOCK_REQUEST
+});
+
+const restockFailure = (error: string=DEFAULT_ERROR) => ({
+  type: T.RESTOCK_FAILURE,
+  error
+});
+
+const restockSuccess = (message: string) => ({
+  type: T.RESTOCK_SUCCESS,
+  message
+});
+
 const order = (transactions: []=[]) => (
-  (dispatch) => {
+  (dispatch, getState) => {
+    const state = getState();
+    const items = state.inventory.items;
     dispatch(orderRequest());
     return db.addOrder()
     .then((response) => {
@@ -33,7 +49,7 @@ const order = (transactions: []=[]) => (
       }
       const { statement } = response;
       const newTransactions = transactions.map(t => ({ ...t, orderId: statement.lastID }));
-      return db.addTransactions(newTransactions);
+      return db.addTransactions(newTransactions, items);
     })
     .then(response => {
       if (response.error) {
@@ -48,7 +64,27 @@ const order = (transactions: []=[]) => (
   }
 );
 
+const restock = (transaction: {}={}) => (
+  (dispatch, getState) => {
+    const state = getState();
+    const items = state.inventory.items;
+    dispatch(restockRequest());
+    return db.addTransaction(transaction, items)
+    .then(response => {
+      if (response.error) {
+        return dispatch(restockFailure(response.error));
+      }
+      return dispatch(restockSuccess(response.message));
+    })
+    .catch(ex => {
+      dispatch(restockFailure());
+      console.error('Error in trying to restock: ', ex);
+    });
+  }
+);
+
 module.exports = {
   order,
+  restock,
   updateTransactions
 };

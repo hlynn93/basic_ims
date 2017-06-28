@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import { Search, Input, Form, Button, Label, Icon } from 'semantic-ui-react';
+import { Search, Input, Form, Button, Label } from 'semantic-ui-react';
 
 const DEFAULT_QUANTITY = 1;
+const DECIMAL = 10;
 
 const initialState = {
   isLoading: false,
@@ -14,9 +15,7 @@ const initialState = {
   }
 };
 
-const DECIMAL = 10;
-
-export default class AddForm extends Component {
+export default class OrderForm extends Component {
 
   props: {
     items: [],

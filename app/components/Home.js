@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 
-import { AddForm, TransactionTable } from './HomeComponents';
+import { OrderForm, TransactionTable } from './HomeComponents';
 
 const initialState = {
   item: {},
@@ -50,11 +50,11 @@ export default class Home extends Component {
   }
 
   render() {
-    const { item,  } = this.state;
+    const { item } = this.state;
     const { transactions } = this.props;
     return (
       <div>
-        <AddForm
+        <OrderForm
           items={this.props.items}
           item={item}
           onResultSelect={this.handleResultSelect.bind(this)}

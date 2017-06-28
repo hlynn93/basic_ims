@@ -15,6 +15,12 @@ const transactionReducer = (state = initialState, action) => {
     case T.ORDER_FAILURE:
       return { ...state, message: '', error: action.error };
     case T.ORDER_SUCCESS:
+      return { ...state, message: action.message, error: '', transactions: [] };
+    case T.RESTOCK_REQUEST:
+      return { ...state, message: '', error: '' };
+    case T.RESTOCK_FAILURE:
+      return { ...state, message: '', error: action.error };
+    case T.RESTOCK_SUCCESS:
       return { ...state, message: action.message, error: '' };
     default:
       return state;
