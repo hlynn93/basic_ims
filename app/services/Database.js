@@ -56,19 +56,30 @@ class Database {
   }
 
   init() {
-    const queries = [];
+    let queries = [];
     queries.push(SQL.CREATE.ITEM_TABLE);
     queries.push(SQL.CREATE.TRANSACTION_TABLE);
     queries.push(SQL.CREATE.ORDER_TABLE);
+    return this.getItems()
+    .then(result => {
+      if (result.rows.length < 1) {
+        queries = queries.concat(this.getTestItems());
+      }
+      return this.serializeAsync(queries);
+    });
+  }
+
+  getTestItems() {
+    const queries = [];
     for (let i = 0; i < 200; i += 1) {
       queries.push(SQL.INSERT.ITEM(
-        faker.commerce.productName,
-        faker.random.number,
-        faker.name.prefix,
-        faker.commerce.price
+        faker.commerce.productName(),
+        faker.random.number(),
+        faker.name.prefix(),
+        faker.commerce.price()
       ));
     }
-    return this.serializeAsync(queries);
+    return queries;
   }
 
   createTable() {

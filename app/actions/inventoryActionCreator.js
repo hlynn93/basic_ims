@@ -42,7 +42,7 @@ const initInventory = () => (
     db.init()
     .then(() => {
       dispatch(initInventorySuccess());
-      return getItems();
+      return dispatch(getItems());
     })
   )
 );

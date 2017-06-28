@@ -7,7 +7,7 @@ module.exports = {
         [unit] TEXT NOT NULL,
         [price] INTEGER NOT NULL
       );`,
-    TRANSACTION_TABLE: `CREATE TABLE [Transaction] (
+    TRANSACTION_TABLE: `CREATE TABLE IF NOT EXISTS [Transaction] (
         [id] INTEGER PRIMARY KEY AUTOINCREMENT,
         [itemId] INTEGER NOT NULL,
         [orderId] INTEGER NOT NULL,
@@ -16,7 +16,7 @@ module.exports = {
         FOREIGN KEY([itemId]) REFERENCES [Item](id),
         FOREIGN KEY([orderId]) REFERENCES [Order](id)
       );`,
-    ORDER_TABLE: `CREATE TABLE [Order] (
+    ORDER_TABLE: `CREATE TABLE IF NOT EXISTS [Order] (
         [id]          INTEGER PRIMARY KEY AUTOINCREMENT
       );`
   },
@@ -24,11 +24,14 @@ module.exports = {
     ITEM: (title = null,
       quantity = null,
       unit = null,
-      price = null) => (
-        `INSERT INTO [Item]
-        (title, quantity, unit, price)
-        VALUES ('${title}', ${quantity}, '${unit}', ${price});`
-      )
+      price = null) => {
+        console.warn(title, quantity, unit, price);
+        return (
+          `INSERT INTO [Item]
+          (title, quantity, unit, price)
+          VALUES ('${title}', ${quantity}, '${unit}', ${price});`
+        );
+      }
   },
 };
 
