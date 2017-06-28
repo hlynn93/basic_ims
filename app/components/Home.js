@@ -13,6 +13,7 @@ export default class Home extends Component {
     transactions: [],
     actions: {
       getItems: () => void,
+      initInventory: () => void,
       order: () => void,
       updateTransactions: () => void,
     }
@@ -21,7 +22,24 @@ export default class Home extends Component {
   state = { ...initialState }
 
   componentWillMount() {
-    this.props.actions.getItems();
+    this.props.actions.initInventory();
+    // var sqlite3 = require('sqlite3').verbose();
+    // const dbPath = `${process.resourcesPath}database.db`
+    // var db = new sqlite3.Database(dbPath);
+
+    // db.serialize(function() {
+    //   db.run("CREATE TABLE lorem (info TEXT)");
+
+    //   var stmt = db.prepare("INSERT INTO lorem VALUES (?)");
+    //   for (var i = 0; i < 10; i++) {
+    //       stmt.run("Ipsum " + i);
+    //   }
+    //   stmt.finalize();
+
+    //   db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
+    //       alert(row.id + ": " + row.info);
+    //   });
+    // });
   }
 
   resetItem() {

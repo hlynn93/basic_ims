@@ -1,4 +1,5 @@
-import { config as CONFIG } from '../utils';
+import { config as CONFIG, sql as SQL } from '../utils';
+import faker from 'faker';
 
 const sqlite3 = require('sqlite3').verbose();
 
@@ -55,7 +56,19 @@ class Database {
   }
 
   init() {
-
+    const queries = [];
+    queries.push(SQL.CREATE.ITEM_TABLE);
+    queries.push(SQL.CREATE.TRANSACTION_TABLE);
+    queries.push(SQL.CREATE.ORDER_TABLE);
+    for (let i = 0; i < 200; i += 1) {
+      queries.push(SQL.INSERT.ITEM(
+        faker.commerce.productName,
+        faker.random.number,
+        faker.name.prefix,
+        faker.commerce.price
+      ));
+    }
+    return this.serializeAsync(queries);
   }
 
   createTable() {

@@ -1,6 +1,6 @@
 {
-  "name": "electron-react-boilerplate",
-  "productName": "ElectronReact",
+  "name": "BasicIMS",
+  "productName": "BasicIMS",
   "version": "0.11.0",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
   "main": "main.js",
@@ -186,6 +186,7 @@
   "dependencies": {
     "electron-debug": "^1.1.0",
     "extract-text-webpack-plugin": "^2.1.0",
+    "faker": "^4.1.0",
     "font-awesome": "^4.7.0",
     "history": "^4.6.1",
     "react": "^15.5.4",

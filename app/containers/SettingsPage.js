@@ -5,6 +5,7 @@ class SettingsPage extends Component {
     return (
       <div>
         Settings Page
+        <p>{process.resourcesPath}</p>
       </div>
     );
   }

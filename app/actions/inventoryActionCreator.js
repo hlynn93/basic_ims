@@ -3,6 +3,10 @@ import { Database } from '../services';
 
 const db = new Database();
 
+const initInventorySuccess = () => ({
+  type: I.INIT_INVENTORY_SUCCESS,
+});
+
 const getItemsRequest = () => ({
   type: I.GET_ITEMS_REQUEST,
 });
@@ -33,6 +37,17 @@ const getItems = (input: string='') => (
   }
 );
 
+const initInventory = () => (
+  dispatch => (
+    db.init()
+    .then(() => {
+      dispatch(initInventorySuccess());
+      return getItems();
+    })
+  )
+);
+
 module.exports = {
-  getItems
+  getItems,
+  initInventory
 };
