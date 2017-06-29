@@ -29,30 +29,9 @@ export default class UpdateForm extends Component {
 
   resetComponent = () => this.setState({ ...initialState })
 
-  handleResultSelect = (e: {}, result: {}) => this.setState({ value: result.title }, () => this.props.onResultSelect(result.id))
-
-  handleQuantityChange(event, result) {
-    const { value } = result;
-    const { item } = this.props;
-
-    const parsedQuantity = !isNaN(parseFloat(value, DECIMAL)) ? parseFloat(value, DECIMAL) : 0;
-    this.setState({
-      ...this.state,
-      newItem: { ...this.state.newItem,
-        quantity: result.value
-      }
-    });
-  }
-
-  handlePriceChange(event, result) {
-    this.setState({
-      ...this.state,
-      newItem: {
-        ...this.state.newItem,
-        price: result.value
-      }
-    });
-  }
+  handleResultSelect = (e: {}, result: {}) => this.setState({
+    value: result.title
+  }, () => this.props.onResultSelect(result.id))
 
   handleValueChange(type, event, result) {
     this.setState({

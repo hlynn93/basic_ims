@@ -15,7 +15,7 @@ const initialState = {
   }
 };
 
-export default class AddForm extends Component {
+export default class RestockForm extends Component {
 
   props: {
     items: [],

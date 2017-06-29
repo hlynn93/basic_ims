@@ -1,7 +1,7 @@
 // @flow
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { initInventory, updateItem } from '../actions/inventoryActionCreator';
+import { initInventory, updateItem, createItem } from '../actions/inventoryActionCreator';
 import { restock } from '../actions/transactionActionCreator';
 import Add from '../components/Add';
 
@@ -11,7 +11,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    initInventory, restock, updateItem
+    initInventory, restock, updateItem, createItem
   }, dispatch)
 });
 

@@ -78,6 +78,10 @@ class Database {
     return this.allAsync(`SELECT * FROM Item WHERE id = ${value}`);
   }
 
+  createItem(fields: {}={}) {
+    return this.runAsync(formatInsert('Item', fields));
+  }
+
   addTransaction(transaction: {}={}, items: []=[]) {
     return this.serializeAsync(formatTransaction(transaction, items));
   }

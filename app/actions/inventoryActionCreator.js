@@ -32,6 +32,18 @@ const updateItemSuccess = () => ({
   type: I.UPDATE_ITEM_SUCCESS,
 });
 
+const createItemRequest = () => ({
+  type: I.CREATE_ITEM_REQUEST,
+});
+
+const createItemFailure = () => ({
+  type: I.CREATE_ITEM_FAILURE,
+});
+
+const createItemSuccess = () => ({
+  type: I.CREATE_ITEM_SUCCESS,
+});
+
 const getItems = (input: string='') => (
   (dispatch) => {
     dispatch(getItemsRequest());
@@ -66,6 +78,24 @@ const updateItem = (id, fields: {}={}) => (
   }
 );
 
+const createItem = (fields: {}={}) => (
+  (dispatch) => {
+    dispatch(createItemRequest());
+    return db.createItem(fields)
+      .then(response => {
+        if (response.error) {
+          return dispatch(createItemFailure(response.error));
+        }
+        dispatch(createItemSuccess(response.rows));
+        return dispatch(getItems());
+      })
+      .catch(ex => {
+        dispatch(createItemFailure());
+        console.error('Error in trying to create item: ', ex);
+      });
+  }
+);
+
 const initInventory = () => (
   dispatch => (
     db.init()
@@ -79,5 +109,6 @@ const initInventory = () => (
 module.exports = {
   getItems,
   initInventory,
-  updateItem
+  updateItem,
+  createItem
 };

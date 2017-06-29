@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Menu, Segment } from 'semantic-ui-react';
 
-import { AddForm, UpdateForm } from './AddComponents';
+import { RestockForm, UpdateForm, CreateForm } from './AddComponents';
 
 const RESTOCK = 'restock';
 const EDIT = 'edit';
+const CREATE = 'create';
 
 const initialState = {
   item: {},
@@ -17,7 +18,8 @@ class Add extends Component {
     actions: {
       initInventory: () => void,
       restock: () => void,
-      updateItem: () => void
+      updateItem: () => void,
+      createItem: () => void
     }
   }
 
@@ -48,11 +50,15 @@ class Add extends Component {
     .then(() => this.resetItem());
   }
 
+  handleCreate(item: {}={}) {
+    return this.props.actions.createItem(item);
+  }
+
   render() {
     const { item, activeTab } = this.state;
 
     const tabContent = {
-      [RESTOCK]: (<AddForm
+      [RESTOCK]: (<RestockForm
         items={this.props.items}
         item={item}
         onResultSelect={this.handleResultSelect.bind(this)}
@@ -64,6 +70,10 @@ class Add extends Component {
         onResultSelect={this.handleResultSelect.bind(this)}
         onSubmit={this.handleUpdate.bind(this)}
       />),
+      [CREATE]: (<CreateForm
+        item={item}
+        onSubmit={this.handleCreate.bind(this)}
+      />),
     };
 
     return (
@@ -71,6 +81,7 @@ class Add extends Component {
         <Menu pointing secondary>
           <Menu.Item name={RESTOCK} active={activeTab === RESTOCK} onClick={this.handleTabClick} />
           <Menu.Item name={EDIT} active={activeTab === EDIT} onClick={this.handleTabClick} />
+          <Menu.Item name={CREATE} active={activeTab === CREATE} onClick={this.handleTabClick} />
         </Menu>
         <Segment padded>
           {tabContent[activeTab]}

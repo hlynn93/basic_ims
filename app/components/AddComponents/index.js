@@ -1,7 +1,9 @@
-import AddForm from './AddForm';
+import RestockForm from './RestockForm';
+import CreateForm from './CreateForm';
 import UpdateForm from './UpdateForm';
 
 module.exports = {
-  AddForm,
-  UpdateForm
+  RestockForm,
+  UpdateForm,
+  CreateForm
 };
