@@ -101,6 +101,10 @@ class Database {
     return this.serializeAsync(queries);
   }
 
+  getTransactions() {
+    return this.allAsync("SELECT id, itemId, orderId, price, quantity, datetime(timestamp,'localtime') FROM [Transaction] WHERE orderId IS NOT NULL");
+  }
+
   addOrder() {
     return this.runAsync('INSERT INTO [Order] (id) VALUES (null)');
   }

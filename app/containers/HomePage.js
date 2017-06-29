@@ -8,13 +8,15 @@ import Home from '../components/Home';
 
 const mapStateToProps = state => ({
   items: state.inventory.items,
-  transactions: state.transaction.transactions
+  transactions: state.transaction.transactions.current
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    getItems, initInventory,
-    order, updateTransactions
+    getItems,
+    initInventory,
+    order,
+    updateTransactions
   }, dispatch)
 });
 

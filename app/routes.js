@@ -16,7 +16,6 @@ export default () => (
         />
         <Route path="/home" component={HomePage} />
         <Route path="/add" component={AddPage} />
-        <Route path="/create" component={CreatePage} />
         <Route path="/inventory" component={InventoryPage} />
         <Route path="/transactions" component={TransactionPage} />
         <Route path="/settings" component={SettingsPage} />

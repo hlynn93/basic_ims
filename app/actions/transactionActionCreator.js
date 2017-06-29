@@ -37,6 +37,21 @@ const restockSuccess = (message: string) => ({
   message
 });
 
+const getTransactionsRequest = () => ({
+  type: T.GET_TRANSACTIONS_REQUEST
+});
+
+const getTransactionsFailure = (error: string=DEFAULT_ERROR) => ({
+  type: T.GET_TRANSACTIONS_FAILURE,
+  error
+});
+
+const getTransactionsSuccess = (transactions: []=[], message: string='') => ({
+  type: T.GET_TRANSACTIONS_SUCCESS,
+  message,
+  transactions
+});
+
 const order = (transactions: []=[]) => (
   (dispatch, getState) => {
     const state = getState();
@@ -83,8 +98,26 @@ const restock = (transaction: {}={}) => (
   }
 );
 
+const getTransactions = (filter: {}={}) => (
+  (dispatch) => {
+    dispatch(getTransactionsRequest());
+    return db.getTransactions()
+    .then(response => {
+      if (response.error) {
+        return dispatch(getTransactionsFailure(response.error));
+      }
+      return dispatch(getTransactionsSuccess(response.rows));
+    })
+    .catch(ex => {
+      dispatch(getTransactionsFailure());
+      console.error('Error in trying to get transactions: ', ex);
+    });
+  }
+);
+
 module.exports = {
   order,
   restock,
-  updateTransactions
+  updateTransactions,
+  getTransactions
 };

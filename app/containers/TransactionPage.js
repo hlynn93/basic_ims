@@ -1,17 +1,20 @@
-import React, { Component } from 'react';
+// @flow
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { getItems } from '../actions/inventoryActionCreator';
+import { getTransactions } from '../actions/transactionActionCreator';
 
-class TransactionPage extends Component {
-  render() {
-    return (
-      <div>
-        Transaction Page
-      </div>
-    );
-  }
-}
+import Transaction from '../components/Transaction';
 
-TransactionPage.propTypes = {
+const mapStateToProps = state => ({
+  items: state.inventory.items,
+  transactions: state.transaction.transactions.all
+});
 
-};
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    getTransactions, getItems
+  }, dispatch)
+});
 
-export default TransactionPage;
+export default connect(mapStateToProps, mapDispatchToProps)(Transaction);

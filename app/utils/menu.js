@@ -10,11 +10,6 @@ module.exports = [
     router: '/add',
   },
   {
-    id: 3,
-    name: 'Create',
-    router: '/create',
-  },
-  {
     id: 4,
     name: 'Inventory',
     router: '/inventory',
