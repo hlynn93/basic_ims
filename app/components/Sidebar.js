@@ -17,18 +17,19 @@ class Sidebar extends Component {
     const { activeItem } = this.state;
     const menuItems = menu.map(item =>
       <Menu.Item
+        style={{ padding: 0 }}
         key={item.id}
         name={item.name}
         active={item.name === activeItem}
         onClick={this.handleItemClick}
       >
-        <Link className="sidebar-link" to={item.router}>{item.name}</Link>
+        <Link style={{ padding: '12px 16px', display: 'block' }} className="sidebar-link" to={item.router}>{item.name}</Link>
       </Menu.Item>
     );
 
     return (
       <div className={styles.sidebar}>
-        <Menu vertical>
+        <Menu secondary pointing vertical style={{ height: '100%', paddingTop: 20 }}>
           {menuItems}
         </Menu>
       </div>

@@ -66,7 +66,7 @@ class Table extends Component {
               className="-striped -highlight"
               data={items}
               columns={this.columns}
-              defaultPageSize={30}
+              defaultPageSize={10}
               filterable
             />
           }

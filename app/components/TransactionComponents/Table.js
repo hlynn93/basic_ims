@@ -69,7 +69,7 @@ export default class Table extends Component {
               className="-striped -highlight"
               data={transactions}
               columns={this.columns}
-              defaultPageSize={30}
+              defaultPageSize={10}
               filterable
             />
           }
