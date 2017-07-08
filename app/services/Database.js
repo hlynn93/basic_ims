@@ -76,7 +76,7 @@ class Database {
   }
 
   getItems(value: string='') {
-    return this.allAsync(`SELECT * FROM Item WHERE title LIKE '${value}%'`);
+    return this.allAsync(`SELECT * FROM Item WHERE title LIKE '${value}%' ORDER BY title ASC`);
   }
 
   getItem(value: string='') {
@@ -110,8 +110,8 @@ class Database {
     return this.allAsync('SELECT MIN(timestamp) AS min, MAX(timestamp) AS max FROM [Transaction] WHERE orderId IS NOT NULL');
   }
 
-  getTransactions(dateString: string=CONST.MOMENT.DEFAULT_DATE) {
-    return this.allAsync(`SELECT id, itemId, orderId, price, quantity, datetime(timestamp,'localtime') FROM [Transaction] WHERE orderId IS NOT NULL AND strftime('%m-%Y', timestamp) = '${dateString}'`);
+  getTransactions(dateString: string=CONST.MOMENT.DEFAULT_DATE, isTransaction: boolean=true) {
+    return this.allAsync(`SELECT id, itemId, orderId, price, quantity, datetime(timestamp,'localtime') FROM [Transaction] WHERE orderId IS ${isTransaction ? 'NOT ' : ''}NULL AND strftime('%m-%Y', timestamp) = '${dateString}'`);
   }
 
   addOrder() {

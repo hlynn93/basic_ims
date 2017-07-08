@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactTable from 'react-table';
-import moment from 'moment';
 import { Segment } from 'semantic-ui-react';
 
 const Cell = (props: {}={}) => (
@@ -9,65 +8,63 @@ const Cell = (props: {}={}) => (
   </div>
 );
 
-export default class Table extends Component {
+class Table extends Component {
   props: {
-    transactions: [],
     items: []
   }
 
   columns = [
     {
-      Header: 'Transactions',
+      Header: 'Items',
       columns: [
         {
-          Header: 'Timestamp',
-          id: "datetime(timestamp,'localtime')",
-          width: 140,
-          accessor: d => moment(d["datetime(timestamp,'localtime')"]).format('DD/MM hh:mma'),
-          Cell: row => (<Cell {...row} className='table_timestamp'/>)
+          Header: 'ID',
+          id: "id",
+          width: 80,
+          accessor: d => d.id,
+          Cell: row => (<Cell {...row} className="table_id" />)
         },
         {
-          Header: 'Item',
-          id: 'itemId',
-          accessor: d => this.props.items.find(i => i.id === d.itemId).title,
-          Cell: row => (<Cell {...row} className='table_item-title'/>)
+          Header: 'Name',
+          id: 'title',
+          accessor: d => d.title,
+          Cell: row => (<Cell {...row} className="table_item-title" />)
         },
         {
           Header: 'Quantity',
           id: 'quantity',
           accessor: d => d.quantity,
           width: 80,
-          Cell: row => (<Cell {...row} className='table_quantity'/>)
+          Cell: row => (<Cell {...row} className="table_quantity" />)
         },
         {
           Header: 'Unit',
           id: 'unit',
-          accessor: d => this.props.items.find(i => i.id === d.itemId).unit,
+          accessor: d => d.unit,
           width: 80,
-          Cell: row => (<Cell {...row} className='table_unit'/>)
+          Cell: row => (<Cell {...row} className="table_unit" />)
         },
         {
-          Header: 'Amount',
+          Header: 'Price',
           id: 'price',
           accessor: d => d.price,
-          Cell: row => (<Cell {...row} className='table_amount'/>)
+          Cell: row => (<Cell {...row} className='table_price'/>)
         },
       ]
     },
   ];
 
   render() {
-    const { transactions, items } = this.props;
-
+    const { items } = this.props;
     return (
       <div>
         <Segment loading={items.length < 1}>
           {
             items.length > 0 &&
             <ReactTable
-              ref="reactTable"
+              ref={ref => { this.table = ref; }}
               className="-striped -highlight"
-              data={transactions}
+              data={items}
               columns={this.columns}
               defaultPageSize={30}
               filterable
@@ -78,3 +75,9 @@ export default class Table extends Component {
     );
   }
 }
+
+Table.propTypes = {
+
+};
+
+export default Table;

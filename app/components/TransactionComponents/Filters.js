@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Segment, Select, Button } from 'semantic-ui-react';
-
-import { DateHelper } from '../../helpers';
+import { Segment, Select, Button, Checkbox, Form } from 'semantic-ui-react';
 
 class Filters extends Component {
   props: {
@@ -29,6 +27,12 @@ class Filters extends Component {
             options={yearOptions}
             value={filters.year}
             onChange={this.props.onChange.bind(null, 'year')}
+          />
+          <Checkbox
+            style={{ marginLeft: 10 }}
+            checked={filters.isTransaction}
+            label={{ children: 'Transactions' }}
+            onChange={this.props.onChange.bind(null, 'isTransaction')}
           />
           <Button
             style={{ marginLeft: 10 }}

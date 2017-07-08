@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
+// @flow
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-class InventoryPage extends Component {
-  render() {
-    return (
-      <div>
-        Inventory Page
-      </div>
-    );
-  }
-}
+import Inventory from '../components/Inventory';
 
-InventoryPage.propTypes = {
+const mapStateToProps = state => ({
+  items: state.inventory.items,
+});
 
-};
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
 
-export default InventoryPage;
+  }, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Inventory);

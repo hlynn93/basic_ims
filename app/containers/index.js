@@ -1,6 +1,6 @@
 import App from './App';
 import HomePage from './HomePage';
-import AddPage from './AddPage';
+import ManagePage from './ManagePage';
 import InventoryPage from './InventoryPage';
 import SettingsPage from './SettingsPage';
 import TransactionPage from './TransactionPage';
@@ -8,7 +8,7 @@ import TransactionPage from './TransactionPage';
 module.exports = {
   App,
   HomePage,
-  AddPage,
+  ManagePage,
   InventoryPage,
   SettingsPage,
   TransactionPage

@@ -20,7 +20,8 @@ class Transaction extends Component {
   state = {
     filters: {
       month: moment().format(MONTH_FORMAT),
-      year: moment().get('year')
+      year: moment().get('year'),
+      isTransaction: true
     }
   }
 
@@ -30,7 +31,12 @@ class Transaction extends Component {
   }
 
   handleChange(type, event, result) {
-    const value = result.value ? result.value : result;
+    let value = result;
+    if ('checked' in result) {
+      value = result.checked;
+    } else if (result.value) {
+      value = result.value;
+    }
     this.setState({
       filters: { ...this.state.filters, [type]: value }
     });
@@ -39,8 +45,8 @@ class Transaction extends Component {
   handleFilter() {
     const { filters } = this.state;
     return this.props.actions.getTransactions({
+      ...filters,
       month: moment(filters.month, MONTH_FORMAT).format('MM'),
-      year: filters.year
     });
   }
 
@@ -49,7 +55,7 @@ class Transaction extends Component {
     const { filters } = this.state;
 
     const parsedRange = { min: moment(range.min).format(DATE_FORMAT), max: moment(range.max).format(DATE_FORMAT) };
-    const monthOptions = DateHelper.getMonthOptions(parsedRange, filters.year );
+    const monthOptions = DateHelper.getMonthOptions(parsedRange, filters.year);
 
     const months = monthOptions.map((v, i) => ({ key: v, value: v, text: v }));
     const years = DateHelper.getYearOptions(parsedRange).map(v => ({ key: v, value: v, text: v }));

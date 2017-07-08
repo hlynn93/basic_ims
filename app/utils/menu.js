@@ -2,12 +2,12 @@ module.exports = [
   {
     id: 1,
     name: 'Home',
-    router: '/home',
+    router: '/',
   },
   {
     id: 2,
-    name: 'Add',
-    router: '/add',
+    name: 'Manage',
+    router: '/manage',
   },
   {
     id: 4,

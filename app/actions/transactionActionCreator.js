@@ -103,7 +103,7 @@ const getTransactions = (filter: {}={}) => (
   (dispatch) => {
     dispatch(getTransactionsRequest());
     const dateString = _.isEmpty(filter) ? undefined : `${filter.month}-${filter.year}`;
-    return db.getTransactions(dateString)
+    return db.getTransactions(dateString, filter.isTransaction)
     .then(response => {
       if (response.error) {
         return dispatch(getTransactionsFailure(response.error));

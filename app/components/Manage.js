@@ -12,7 +12,7 @@ const initialState = {
   activeTab: EDIT
 };
 
-class Add extends Component {
+class Manage extends Component {
   props: {
     items: [],
     actions: {
@@ -91,8 +91,8 @@ class Add extends Component {
   }
 }
 
-Add.propTypes = {
+Manage.propTypes = {
 
 };
 
-export default Add;
+export default Manage;
