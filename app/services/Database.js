@@ -1,6 +1,8 @@
 import faker from 'faker';
 import _ from 'lodash';
-import { config as CONFIG, sql as SQL } from '../utils';
+import moment from 'moment';
+
+import { config as CONFIG, sql as SQL, constants as CONST } from '../utils';
 
 const sqlite3 = require('sqlite3').verbose();
 
@@ -59,8 +61,9 @@ class Database {
   init() {
     let queries = [];
     queries.push(SQL.CREATE.ITEM_TABLE);
-    queries.push(SQL.CREATE.TRANSACTION_TABLE);
+    queries.push(SQL.CREATE.TRANSACTION_TABLE(CONST.MOMENT.DEFAULT_DATE));
     queries.push(SQL.CREATE.ORDER_TABLE);
+    console.warn(queries);
     return this.allAsync("SELECT name FROM sqlite_master WHERE type='table' AND name='Item';")
     .then(result => {
       if (result.rows.length < 1) {
@@ -101,8 +104,8 @@ class Database {
     return this.serializeAsync(queries);
   }
 
-  getTransactions() {
-    return this.allAsync("SELECT id, itemId, orderId, price, quantity, datetime(timestamp,'localtime') FROM [Transaction] WHERE orderId IS NOT NULL");
+  getTransactions(dateString: string=CONST.MOMENT.DEFAULT_DATE) {
+    return this.allAsync(`SELECT id, itemId, orderId, price, quantity, datetime(timestamp,'localtime') FROM [${dateString}_Transaction] WHERE orderId IS NOT NULL`);
   }
 
   addOrder() {
@@ -134,7 +137,7 @@ const formatTransaction = (transaction: {}={}, items: []=[]) => {
     item.quantity - transaction.quantity :
     item.quantity + transaction.quantity;
   return [
-    formatInsert('Transaction', transaction),
+    formatInsert(`${CONST.MOMENT.DEFAULT_DATE}_Transaction`, transaction),
     formatUpdate('Item', transaction.itemId, { quantity })
   ];
 };
@@ -143,7 +146,6 @@ const formatData = (data: {}={}) => {
   const formattedData = { ...data };
   Object.keys(data).map(k => {
     if (_.isString(data[k])) {
-      // console.warn(data[k], insertQuote(data[k]));
       formattedData[k] = insertQuote(data[k]);
     }
   });

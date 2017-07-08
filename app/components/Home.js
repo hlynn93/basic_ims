@@ -21,7 +21,7 @@ export default class Home extends Component {
 
   state = { ...initialState }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.actions.initInventory();
   }
 

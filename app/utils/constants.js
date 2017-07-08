@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 module.exports = {
   MONTHS: {
     JANUARY: 'January',
@@ -12,6 +14,9 @@ module.exports = {
     OCTOBER: 'October',
     NOVEMBER: 'November',
     DECEMBER: 'December',
+  },
+  MOMENT: {
+    DEFAULT_DATE: moment().format('MM_YYYY')
   }
 };
 

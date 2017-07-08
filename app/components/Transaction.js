@@ -35,7 +35,6 @@ class Transaction extends Component {
   render() {
     const { transactions, items } = this.props;
     const { filters } = this.state;
-    console.warn(filters);
     return (
       <div>
         <Filters

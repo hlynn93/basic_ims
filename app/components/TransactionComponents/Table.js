@@ -14,7 +14,7 @@ export default class Table extends Component {
     transactions: [],
     items: []
   }
-  const columns = [
+  columns = [
       {
         Header: 'Transactions',
         columns: [
@@ -34,7 +34,7 @@ export default class Table extends Component {
           {
             Header: 'Item',
             id: 'itemId',
-            accessor: d => items.find(i => i.id === d.itemId).title,
+            accessor: d => this.props.items.find(i => i.id === d.itemId).title,
             Cell: row => (<Cell {...row} className='table_item-title'/>)
           },
           {
@@ -47,7 +47,7 @@ export default class Table extends Component {
           {
             Header: 'Unit',
             id: 'unit',
-            accessor: d => items.find(i => i.id === d.itemId).unit,
+            accessor: d => this.props.items.find(i => i.id === d.itemId).unit,
             width: 80,
             Cell: row => (<Cell {...row} className='table_unit'/>)
           },
@@ -79,7 +79,7 @@ export default class Table extends Component {
               ref="reactTable"
               className="-striped -highlight"
               data={transactions}
-              columns={columns}
+              columns={this.columns}
               defaultPageSize={30}
               filterable
             />
