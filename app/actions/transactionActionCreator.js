@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { TRANSACTION as T } from './constants';
 import { Database } from '../services';
 
@@ -101,7 +102,8 @@ const restock = (transaction: {}={}) => (
 const getTransactions = (filter: {}={}) => (
   (dispatch) => {
     dispatch(getTransactionsRequest());
-    return db.getTransactions()
+    const dateString = _.isEmpty(filter) ? undefined : `${filter.month}-${filter.year}`;
+    return db.getTransactions(dateString)
     .then(response => {
       if (response.error) {
         return dispatch(getTransactionsFailure(response.error));

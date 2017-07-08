@@ -7,7 +7,7 @@ module.exports = {
         [unit] TEXT NOT NULL,
         [price] INTEGER NOT NULL
       );`,
-    TRANSACTION_TABLE: (prefix = '') => (`CREATE TABLE IF NOT EXISTS [${prefix}_Transaction] (
+    TRANSACTION_TABLE: `CREATE TABLE IF NOT EXISTS [Transaction] (
         [id] INTEGER PRIMARY KEY AUTOINCREMENT,
         [itemId] INTEGER NOT NULL,
         [orderId] INTEGER,
@@ -16,7 +16,7 @@ module.exports = {
         [timestamp] DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY([itemId]) REFERENCES [Item](id),
         FOREIGN KEY([orderId]) REFERENCES [Order](id)
-      );`),
+      );`,
     ORDER_TABLE: `CREATE TABLE IF NOT EXISTS [Order] (
         [id]          INTEGER PRIMARY KEY AUTOINCREMENT,
         [timestamp] DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -32,5 +32,8 @@ module.exports = {
           VALUES ('${title}', ${quantity}, '${unit}', ${price});`
       )
   },
+  SELECT: {
+    TABLES: "SELECT name FROM sqlite_master WHERE type='table'"
+  }
 };
 

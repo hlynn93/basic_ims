@@ -8,6 +8,7 @@ import Transaction from '../components/Transaction';
 
 const mapStateToProps = state => ({
   items: state.inventory.items,
+  range: state.inventory.range,
   transactions: state.transaction.transactions.all
 });
 

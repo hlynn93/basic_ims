@@ -2,6 +2,7 @@
 @import '~semantic-ui-css/semantic.min.css';
 @import '~react-table/react-table.css';
 
+
 .main-panel {
   padding: 1rem 1rem 1rem 16rem;
 }

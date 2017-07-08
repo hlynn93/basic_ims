@@ -16,7 +16,7 @@ module.exports = {
     DECEMBER: 'December',
   },
   MOMENT: {
-    DEFAULT_DATE: moment().format('MM_YYYY')
+    DEFAULT_DATE: moment().format('MM-YYYY')
   }
 };
 

@@ -1,7 +1,8 @@
 import { INVENTORY as I } from '../actions/constants';
 
 const initialState = {
-  items: []
+  items: [],
+  range: {},
 };
 
 const inventoryReducer = (state = initialState, action) => {
@@ -38,6 +39,16 @@ const inventoryReducer = (state = initialState, action) => {
       });
     case I.CREATE_ITEM_SUCCESS:
       return { ...state, items: action.items };
+
+    case I.INIT_INVENTORY_REQUEST:
+      return { ...state };
+
+    case I.INIT_INVENTORY_FAILURE:
+      return { ...state };
+
+    case I.INIT_INVENTORY_SUCCESS:
+      return { ...state, range: action.range };
+
     default:
       return state;
   }

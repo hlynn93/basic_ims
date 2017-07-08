@@ -3,8 +3,17 @@ import { Database } from '../services';
 
 const db = new Database();
 
-const initInventorySuccess = () => ({
+const initInventoryRequest = () => ({
+  type: I.INIT_INVENTORY_REQUEST,
+});
+
+const initInventoryFailure = () => ({
+  type: I.INIT_INVENTORY_FAILURE,
+});
+
+const initInventorySuccess = (range: {}={}) => ({
   type: I.INIT_INVENTORY_SUCCESS,
+  range,
 });
 
 const getItemsRequest = () => ({
@@ -97,13 +106,19 @@ const createItem = (fields: {}={}) => (
 );
 
 const initInventory = () => (
-  dispatch => (
-    db.init()
-    .then(() => {
-      dispatch(initInventorySuccess());
+  dispatch => {
+    dispatch(initInventoryRequest());
+    return db.init()
+    .then(() =>
+      db.getMinMaxTransactionTimestamp())
+    .then((response) => {
+      if (response.error) {
+        return dispatch(initInventoryFailure());
+      }
+      dispatch(initInventorySuccess(response.rows[0]));
       return dispatch(getItems());
-    })
-  )
+    });
+  }
 );
 
 module.exports = {

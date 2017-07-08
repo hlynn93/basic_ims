@@ -1,26 +1,42 @@
 import React, { Component } from 'react';
-import { Segment, Select, Input } from 'semantic-ui-react';
+import { Segment, Select, Button } from 'semantic-ui-react';
 
-import { constants as CONST } from '../../utils';
+import { DateHelper } from '../../helpers';
 
 class Filters extends Component {
   props: {
     filters: {},
-    onChange: () => void
+    monthOptions: [],
+    yearOptions: [],
+    onChange: () => void,
+    onSubmitFilter: () => void
   }
   render() {
-    const { filters } = this.props;
+    const { filters, onSubmitFilter, monthOptions, yearOptions } = this.props;
 
-    const months = Object.values(CONST.MONTHS).map((v,i) => ({ key: v, value: i + 1, text: v }));
     return (
       <div style={{ marginBottom: 10 }}>
         <Segment color="red">
           <Select
             placeholder="Select month"
-            options={months}
+            options={monthOptions}
             value={filters.month}
             onChange={this.props.onChange.bind(null, 'month')}
           />
+          <Select
+            style={{ marginLeft: 10 }}
+            placeholder="Select year"
+            options={yearOptions}
+            value={filters.year}
+            onChange={this.props.onChange.bind(null, 'year')}
+          />
+          <Button
+            style={{ marginLeft: 10 }}
+            color="green"
+            onClick={onSubmitFilter}
+          >
+            Go
+          </Button>
         </Segment>
       </div>
     );
