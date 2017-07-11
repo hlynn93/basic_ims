@@ -33,3 +33,5 @@ before_script:
 script:
   - yarn test-all
   - yarn package
+
+osx_image: xcode8.3
